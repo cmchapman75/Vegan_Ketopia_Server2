@@ -125,7 +125,7 @@ recipeRouter
   .route("/:recipe_Id")
   .patch(requireAuth, bodyParser, (req, res, next) => {
 
-    let { title,instructions,  ingredients } = req.body;
+    let { title, instructions,  ingredients } = req.body;
     let updatedRecipe = { title, instructions, ingredients };
     let recipeId = req.body.id;
 

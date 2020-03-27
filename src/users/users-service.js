@@ -5,20 +5,20 @@ const REGEX_UPPER_LOWER_NUMBER_SPECIAL = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*
 
 const AccountService = {
   hasUserWithUserName(db, username) {
-    return db("user")
+    return db("users")
       .where({ username })
       .first()
-      .then(user => !!user);
+      .then(users => !!users);
   },
   insertUser(db, newUser) {
     return db
       .insert(newUser)
-      .into("user")
+      .into("users")
       .returning("*")
-      .then(([user]) => user);
+      .then(([users]) => users);
   },
   deleteUser(db, username) {
-    return db("user")
+    return db("users")
       .where({ username })
       .delete();
   },
@@ -28,7 +28,7 @@ const AccountService = {
       .delete();
   },
   updateAccount(knex, id, updatedData) {
-    return knex("user")
+    return knex("users")
       .where({ id })
       .update(updatedData);
   },
