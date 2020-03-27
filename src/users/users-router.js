@@ -21,7 +21,7 @@ const checkToken = (req, res, next) => {
 };
 
 usersRouter
-  .route("/")
+  .route("/user")
   .post(bodyParser, (req, res, next) => {
     const { emailAddress, username, password } = req.body;
     for (const field of ["emailAddress", "username", "password"]) {

@@ -19,19 +19,17 @@
   
 ## Screenshots:
 
-   ![Landing Logo](src/Assets/LandingLogo.gif)
+   ![Landing Logo](src/Assets/Landing.gif)
 
-   ![Home Page](src/Assets/homePage.gif)
+   ![Home Page](src/Assets/Dashboard.gif)
 
-   ![Pantry Landing Page](src/Assets/pantryLanding.gif)   
+   ![Pantry Landing Page](src/Assets/Pantry.gif)   
 
-   ![Recipe Landing Page](src/Assets/recipeLanding.gif)
+   ![Recipe Landing Page](src/Assets/Recipes.gif)
 
-   ![Recipe Detail Page](src/Assets/recipeDetail.gif)
+   ![Recipe Detail Page](src/Assets/RecipeDetail.gif)
    
-   ![Meal Plan Add](src/Assets/planAdd.gif)
-   
-   ![Dark Mode Banner](src/Assets/DarkMode-Banner.gif)
+
 
 
 

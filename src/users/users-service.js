@@ -10,9 +10,9 @@ const AccountService = {
       .first()
       .then(user => !!user);
   },
-  insertUser(db, newAccount) {
+  insertUser(db, newUser) {
     return db
-      .insert(newAccount)
+      .insert(newUser)
       .into("user")
       .returning("*")
       .then(([user]) => user);
