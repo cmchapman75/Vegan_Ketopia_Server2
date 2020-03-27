@@ -22,7 +22,7 @@ create table recipes (
     cuisineType TEXT,     
     nutrient_info TEXT,
     source_url TEXT,
-    recipe_owner INTEGER REFERENCES users(id) ON DELETE CASCADE NOT NULL
+    recipe_owner INTEGER REFERENCES users(id) ON DELETE CASCADE 
 );
 
 DROP TYPE IF EXISTS stock;

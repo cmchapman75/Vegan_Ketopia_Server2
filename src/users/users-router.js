@@ -21,7 +21,7 @@ const checkToken = (req, res, next) => {
 };
 
 usersRouter
-  .route("/user")
+  .route("/users")
   .post(bodyParser, (req, res, next) => {
     const { emailAddress, username, password } = req.body;
     for (const field of ["emailAddress", "username", "password"]) {
@@ -42,17 +42,17 @@ usersRouter
           return res.status(400).json({ error: "Username already taken" });
 
         return UsersService.hashPassword(password).then(hashedPassword => {
-          const newAccount = {
+          const newUser = {
             emailAddress,
             username,
             password: hashedPassword
           };
-          return UsersService.insertUser(req.app.get("db"), newAccount)
-            .then((account) => {
+          return UsersService.insertUser(req.app.get("db"), newUser)
+            .then((user) => {
               return res
                 .status(201)
-                .location(path.posix.join(req.originalUrl, `/${account.id}`))
-                .json(UsersService.serializeUser(account));
+                .location(path.posix.join(req.originalUrl, `/${user.id}`))
+                .json(UsersService.serializeUser(user));
             })
             .catch((err) => {
               console.error(err);
