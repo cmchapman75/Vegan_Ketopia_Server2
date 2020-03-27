@@ -4,31 +4,31 @@ const bcrypt = require("bcryptjs");
 const REGEX_UPPER_LOWER_NUMBER_SPECIAL = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&])[\S]/;
 
 const AccountService = {
-  hasUserWithUserName(db, user_name) {
-    return db("accounts")
-      .where({ user_name })
+  hasUserWithUserName(db, username) {
+    return db("user")
+      .where({ username })
       .first()
       .then(user => !!user);
   },
   insertUser(db, newAccount) {
     return db
       .insert(newAccount)
-      .into("accounts")
+      .into("user")
       .returning("*")
       .then(([user]) => user);
   },
-  deleteUser(db, user_name) {
-    return db("accounts")
-      .where({ user_name })
+  deleteUser(db, username) {
+    return db("user")
+      .where({ username })
       .delete();
   },
-  deleteRecipesOfDeletedUser(db, user_name) {
+  deleteRecipesOfDeletedUser(db, username) {
     return db("recipes")
-      .where({ owner: user_name })
+      .where({ owner: username })
       .delete();
   },
   updateAccount(knex, id, updatedData) {
-    return knex("accounts")
+    return knex("user")
       .where({ id })
       .update(updatedData);
   },
@@ -54,8 +54,8 @@ const AccountService = {
   serializeUser(user) {
     return {
       id: user.id,
-      first_name: xss(user.first_name),
-      user_name: xss(user.user_name),
+      username: xss(user.username),
+      emailAddress: xss(user.emailAddress),
       password: xss(user.password),
     };
   }

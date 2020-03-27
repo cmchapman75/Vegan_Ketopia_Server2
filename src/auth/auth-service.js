@@ -4,12 +4,12 @@ const config = require("../config");
 
 const AuthService = {
   getUserWithUserName(db, username) {
-    return db("accounts")
+    return db("user")
       .where({ username })
       .first();
   },
   getUserWithId(db, id) {
-    return db("accounts")
+    return db("user")
       .where({ id })
       .first();
   },

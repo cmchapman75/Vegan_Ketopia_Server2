@@ -3,7 +3,7 @@ const express = require("express");
 const logger = require("../logger");
 const recipesService = require("./recipes-service");
 const pantryService = require("../pantry/pantry-service");
-const AccountService = require("../users/user-service");
+const AccountService = require("../users/users-service");
 const requireAuth = require("../middleware/jwt-auth");
 const xss = require("xss");
 const path = require("path");
@@ -34,23 +34,26 @@ recipeRouter
   .post(requireAuth, bodyParser, (req, res, next) => {
     let {
       title,
-      recipe_description,
-      time_to_make,
-      recipe_ingredients
+      instructions,
+      ingredients,
+      mealType,
+      cuisineType
     } = req.body;
     let recipe_owner = req.user.id;
     let recipeId = "";
     const newRecipe = {
       title,
-      recipe_description,
-      time_to_make,
+      instructions,
+      ingredients,
+      mealType, 
+      cuisineType,
       recipe_owner
     };
 
     title = title.trim();
     let isValidTitle = recipesService.isValidTitleInput(title);
-    let isValidIngredients = recipesService.isValidIngredientsInput(recipe_ingredients);
-    let isValidDescription = recipesService.isValidDescriptionInput(recipe_description);
+    let isValidIngredients = recipesService.isValidIngredientsInput(ingredients);
+    let isValidDescription = recipesService.isValidDescriptionInput(instructions);
 
 
 
@@ -81,7 +84,7 @@ recipeRouter
           .json(serializeRecipe(recipe));
       })
       .then(() => {
-        recipe_ingredients.map(ingredient => {
+        ingredients.map(ingredient => {
           let newIngredient = {
             ingredient_name: ingredient.toLowerCase(),
             in_stock: null,

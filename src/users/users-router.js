@@ -23,11 +23,11 @@ const checkToken = (req, res, next) => {
 usersRouter
   .route("/")
   .post(bodyParser, (req, res, next) => {
-    const { first_name, user_name, password } = req.body;
-    for (const field of ["first_name", "user_name", "password"]) {
+    const { emailAddress, username, password } = req.body;
+    for (const field of ["emailAddress", "username", "password"]) {
       if (!req.body[field]) {
         return res.status(400).json({
-          error: "Something went wrong. Please try again."
+          error: `Missing '${field}' in request body.`
         });
       }
     }
@@ -36,15 +36,15 @@ usersRouter
     if (passwordError) {
       return res.status(400).json({ error: passwordError });
     }
-    UsersService.hasUserWithUserName(req.app.get("db"), user_name)
+    UsersService.hasUserWithUserName(req.app.get("db"), username)
       .then(hasUserWithUserName => {
         if (hasUserWithUserName)
           return res.status(400).json({ error: "Username already taken" });
 
         return UsersService.hashPassword(password).then(hashedPassword => {
           const newAccount = {
-            first_name,
-            user_name,
+            emailAddress,
+            username,
             password: hashedPassword
           };
           return UsersService.insertUser(req.app.get("db"), newAccount)
@@ -83,19 +83,19 @@ usersRouter
     });
   });
 
-usersRouter.route("/:user_name").delete((req, res, next) => {
-  const { user_name } = req.params;
+usersRouter.route("/:username").delete((req, res, next) => {
+  const { username } = req.params;
   const knexInstance = req.app.get("db");
 
-  UsersService.deleteUser(knexInstance, user_name)
-    .then(UsersService.deleteRecipesOfDeletedUser(knexInstance, user_name))
+  UsersService.deleteUser(knexInstance, username)
+    .then(UsersService.deleteRecipesOfDeletedUser(knexInstance, username))
     .then(res.status(204).end())
     .catch(next);
 });
 
-usersRouter.route("/src/:user_name").get(bodyParser, (req, res, next) => {
-  const { user_name } = req.params;
-  AuthService.getUserWithUserName(req.app.get("db"), user_name).then(dbUser => {
+usersRouter.route("/src/:username").get(bodyParser, (req, res, next) => {
+  const { username } = req.params;
+  AuthService.getUserWithUserName(req.app.get("db"), username).then(dbUser => {
     delete dbUser.password;
     res.json({
       dbUser
@@ -116,10 +116,10 @@ usersRouter.route("/src/:id").get(bodyParser, (req, res, next) => {
 usersRouter.patch("/edit/:id", bodyParser, async (req, res, next) => {
   const knexInstance = req.app.get("db");
   const { id } = req.params;
-  const { first_name, user_name, password } = req.body;
+  const { emailAddress, username, password } = req.body;
   let updatedData = {
-    first_name,
-    user_name,
+    emailAddress,
+    username,
     password
   };
 
@@ -128,22 +128,22 @@ usersRouter.patch("/edit/:id", bodyParser, async (req, res, next) => {
     return res.status(400).json({
       error: {
         message:
-          "Request body must contain username, name, and password"
+          "Request body must contain username, email address, and password"
       }
     });
   }
 
-  if (user_name) {
+  if (username) {
     const hasUserUsername = await UsersService.hasUserWithUserName(
       req.app.get("db"),
-      user_name
+      username
     );
     if (hasUserUsername) {
       return res.status(400).json({
         error: "Username already taken"
       });
     } else {
-      updatedData.user_name = user_name;
+      updatedData.user_name = username;
     }
   }
 
