@@ -20,7 +20,7 @@ app.use(express());
 
 app.use("/api/pantry", pantryRouter);
 app.use("/api/recipes", recipeRouter);
-app.use("/api/user", usersRouter);
+app.use("/api/users", usersRouter);
 app.use("/api/auth", authRouter);
 
 app.use(errorHandler);
