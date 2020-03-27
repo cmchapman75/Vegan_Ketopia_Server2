@@ -20,7 +20,7 @@ create table recipes (
     macro TEXT,
     mealType TEXT,
     cuisineType TEXT,     
-    nutrient_into TEXT,
+    nutrient_info TEXT,
     source_url TEXT,
     recipe_owner INTEGER REFERENCES users(id) ON DELETE CASCADE NOT NULL
 );

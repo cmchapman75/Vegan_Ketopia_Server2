@@ -1,7 +1,7 @@
 BEGIN;
 
 TRUNCATE
-    recipe_ingredients, 
+    -- recipe_ingredients, 
     ingredients,
     recipes,
     users
@@ -30,9 +30,9 @@ values
     ('black beans', 'in-stock', 'dried', 1),
     ('dried basil', 'low', null, 2)
 
-INSERT INTO recipe_ingredients (recipe_id, ingredient_id)
-    (1, 2),
-    (1, 4),
-    (2, 1),
+-- INSERT INTO recipe_ingredients (recipe_id, ingredient_id)
+--     (1, 2),
+--     (1, 4),
+--     (2, 1),
 
 COMMIT;
