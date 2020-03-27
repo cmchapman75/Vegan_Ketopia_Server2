@@ -1,5 +1,5 @@
 TRUNCATE
-    -- recipe_ingredients, 
+    recipe_ingredients, 
     ingredients,
     recipes,
     users
