@@ -48,7 +48,7 @@ authRouter
     const sub = req.user.username;
     const payload = {
       user_id: req.user.id,
-      name: req.user.first_name,
+      name: req.user.username,
     };
     res
       .send({

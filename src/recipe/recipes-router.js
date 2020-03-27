@@ -125,15 +125,15 @@ recipeRouter
   .route("/:recipe_Id")
   .patch(requireAuth, bodyParser, (req, res, next) => {
 
-    let { title, recipe_description, time_to_make, recipe_ingredients } = req.body;
-    let updatedRecipe = { title, recipe_description, time_to_make };
+    let { title,instructions,  ingredients } = req.body;
+    let updatedRecipe = { title, instructions, ingredients };
     let recipeId = req.body.id;
 
     title = title.trim();
 
     let isValidTitle = recipesService.isValidTitleInput(title);
-    let isValidIngredients = recipesService.isValidIngredientsInput(recipe_ingredients);
-    let isValidDescription = recipesService.isValidDescriptionInput(recipe_description);
+    let isValidIngredients = recipesService.isValidIngredientsInput(ingredients);
+    let isValidDescription = recipesService.isValidDescriptionInput(instructions);
 
 
     if (!isValidTitle) {
@@ -159,7 +159,7 @@ recipeRouter
 
     recipesService.deleteRecipeIngredient(req.app.get("db"), recipeId)
       .then(() => {
-        recipe_ingredients.map(ingredient => {
+        ingredients.map(ingredient => {
           let newIngredient = {
             ingredient_name: ingredient.toLowerCase(),
             in_stock: null,

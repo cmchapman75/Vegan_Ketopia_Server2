@@ -39,15 +39,15 @@ pantryRouter
   })
 
   .post(requireAuth, bodyParser, (req, res, next) => {
-    let { ingredient, in_stock, notes } = req.body;
+    let { ingredient_name, in_stock, notes } = req.body;
     let ingredient_owner = req.user.id;
     const newIngredient = {
-      ingredient: ingredient.toLowerCase(),
+      ingredient_name: ingredient_name.toLowerCase(),
       in_stock,
       notes,
       ingredient_owner
     };
-    ingredient = ingredient.trim();
+    ingredient_name = ingredient_name.trim();
 
     let isValidIngredientName = PantryService.isValidIngredientInput(ingredient);
     let isValidNotes = PantryService.isValidNotesInput(notes);
@@ -82,11 +82,11 @@ pantryRouter
 pantryRouter
   .route("/:ingredient_id")
   .patch(requireAuth, bodyParser, (req, res, next) => {
-    let { id, ingredient, in_stock, notes } = req.body;
+    let { id, ingredient_name, in_stock, notes } = req.body;
     let updatedIngredient = { id, ingredient, in_stock, notes };
     let ingredientId = req.body.id;
 
-    ingredient = ingredient.trim();
+    ingredient_name = ingredient_name.trim();
 
     let isValidIngredientName = PantryService.isValidIngredientInput(ingredient);
     let isValidNotes = PantryService.isValidNotesInput(notes);
