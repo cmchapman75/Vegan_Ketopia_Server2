@@ -24,8 +24,8 @@ usersRouter
   .route("/")
   .post(bodyParser, (req, res, next) => {
     console.log("Working");
-    const { emailAddress, username, password } = req.body;
-    for (const field of ["emailAddress", "username", "password"]) {
+    const { username, email_address, password } = req.body;
+    for (const field of [ "username", "email_address", "password"]) {
       if (!req.body[field]) {
         return res.status(400).json({
           error: `Missing '${field}' in request body.`
@@ -45,7 +45,7 @@ usersRouter
 
         return UsersService.hashPassword(password).then(hashedPassword => {
           const newUser = {
-            emailAddress,
+            email_address,
             username,
             password: hashedPassword
           };
@@ -118,10 +118,10 @@ usersRouter.route("/src/:id").get(bodyParser, (req, res, next) => {
 usersRouter.patch("/edit/:id", bodyParser, async (req, res, next) => {
   const knexInstance = req.app.get("db");
   const { id } = req.params;
-  const { emailAddress, username, password } = req.body;
+  const { email_address, username, password } = req.body;
   let updatedData = {
-    emailAddress,
     username,
+    email_address,    
     password
   };
 

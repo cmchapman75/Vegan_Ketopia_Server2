@@ -7,7 +7,7 @@ TRUNCATE
     users
     RESTART IDENTITY CASCADE;
 
-INSERT INTO users ( username, emailAddress, password )
+INSERT INTO users ( username, email_address, password )
 values
   ('Cyra', 'cyragetsfit@gmail.com', '$2a$12$Tv6tC.J6HJMlMEQ6TMEg2OfgHD2cYXNjyLq0YWMfmnCNvpDEXrSLq'),
   ('Chrissy', 'cmchapman75@gmail.com', '$2a$12$6.ZuE93xhiwj7wEIdF/HKOWA3GMZq1ehtzTQz0hYrEQdjUDyK3HJu');

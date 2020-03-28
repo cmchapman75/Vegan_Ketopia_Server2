@@ -55,7 +55,7 @@ const AccountService = {
     return {
       id: user.id,
       username: xss(user.username),
-      emailAddress: xss(user.emailAddress),
+      email_address: xss(user.email_address),
       password: xss(user.password),
     };
   }
