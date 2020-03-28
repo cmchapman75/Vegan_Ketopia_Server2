@@ -23,18 +23,15 @@ const checkToken = (req, res, next) => {
 usersRouter
   .route("/")
   .post(bodyParser, (req, res, next) => {
-    console.log("working")
-    res.send("yup")
-  })
-  // .post(bodyParser, (req, res, next) => {
-  //   const { emailAddress, username, password } = req.body;
-  //   for (const field of ["emailAddress", "username", "password"]) {
-  //     if (!req.body[field]) {
-  //       return res.status(400).json({
-  //         error: `Missing '${field}' in request body.`
-  //       });
-  //     }
-  //   }
+    console.log("Working");
+    const { emailAddress, username, password } = req.body;
+    for (const field of ["emailAddress", "username", "password"]) {
+      if (!req.body[field]) {
+        return res.status(400).json({
+          error: `Missing '${field}' in request body.`
+        });
+      }
+    }
     
     const passwordError = UsersService.validatePassword(password);
 
