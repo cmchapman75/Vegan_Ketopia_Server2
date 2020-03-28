@@ -49,7 +49,7 @@ pantryRouter
     };
     ingredient_name = ingredient_name.trim();
 
-    let isValidIngredientName = PantryService.isValidIngredientInput(ingredient);
+    let isValidIngredientName = PantryService.isValidIngredientInput(ingredient_name);
     let isValidNotes = PantryService.isValidNotesInput(notes);
 
 
