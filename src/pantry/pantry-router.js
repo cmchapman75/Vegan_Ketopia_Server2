@@ -83,12 +83,12 @@ pantryRouter
   .route("/:ingredient_id")
   .patch(requireAuth, bodyParser, (req, res, next) => {
     let { id, ingredient_name, in_stock, notes } = req.body;
-    let updatedIngredient = { id, ingredient, in_stock, notes };
+    let updatedIngredient = { id, ingredient_name, in_stock, notes };
     let ingredientId = req.body.id;
 
     ingredient_name = ingredient_name.trim();
 
-    let isValidIngredientName = PantryService.isValidIngredientInput(ingredient);
+    let isValidIngredientName = PantryService.isValidIngredientInput(ingredient_name);
     let isValidNotes = PantryService.isValidNotesInput(notes);
 
     if (!isValidIngredientName) {
