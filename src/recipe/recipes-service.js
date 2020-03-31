@@ -3,23 +3,25 @@ const INGREDIENT_REGEX = /([a-z]|[A-Z])+/;
 const recipesService = {
 
   getRecipesBySearch(db, searchTerm) {
-    return db("recipes")
+    const query = db("recipes")
       .select("*")
       .innerJoin("recipe_ingredients", "recipe_ingredients.recipe_id", "recipes.id")
       .innerJoin("ingredients", "ingredients.id", "recipe_ingredients.ingredient_id")
       .where({
         "ingredients.ingredient_name": searchTerm.toLowerCase(),
       });
+    console.log(query.toString());
+    return query;
   },  
-  getAllRecipes(db, user_id) {
+  getAllRecipes(db) {
     return db("recipes")
-      .select("*")
-      .where("recipe_owner", user_id);
+      .select("*");
+    // .where("recipe_owner", user_id);
   },
-  getAllByUser(db, accounts) {
+  getAllByUser(db, users) {
     return db("recipes")
       .select("*")
-      .where("owner", accounts);
+      .where("owner", users);
   },
   getRecipeById(db, id) {
     return db("recipes")

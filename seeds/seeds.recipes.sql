@@ -34,7 +34,7 @@ INSERT INTO ingredients (ingredient_name, in_stock, notes, ingredient_owner)
 values  
     ('kale', 'in-stock', 'curly', 2),
     ('black beans', 'in-stock', 'dried', 1),
-    ('dried basil', 'low', null, 2);
+    ('dried basil', 'in-stock', null, 2);
 
 INSERT INTO recipe_ingredients (recipe_id, ingredient_id)
 values
