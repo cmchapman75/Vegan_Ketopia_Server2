@@ -29,7 +29,9 @@ recipeRouter
       .catch(err => {
         next(err);
       });
-  })
+  });
+
+recipeRouter
   .route("/")
   .get(requireAuth, (req, res, next) => {
     let user_id = req.user.id;
