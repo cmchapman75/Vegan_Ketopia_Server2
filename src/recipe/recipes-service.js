@@ -2,13 +2,13 @@ const INGREDIENT_REGEX = /([a-z]|[A-Z])+/;
 
 const recipesService = {
 
-  getRecipeBySearch(db, searchTerm) {
+  getRecipesBySearch(db, searchTerm) {
     return db("recipes")
       .select("*")
       .innerJoin("recipe_ingredients", "recipe_ingredients.recipe_id", "recipes.id")
       .innerJoin("ingredients", "ingredients.id", "recipe_ingredients.ingredient_id")
       .where({
-        "ingredients.ingredient_name": searchTerm,
+        "ingredients.ingredient_name": searchTerm.toLowerCase(),
       });
   },  
   getAllRecipes(db, user_id) {
