@@ -18,6 +18,18 @@ const serializeRecipe = recipe => {
 };
 
 recipeRouter
+  .route("/search")
+  .get(requireAuth, (req, res, next) => {
+    let searchTerm = req.query.q;
+    recipesService
+      .getRecipesBySearch(req.app.get("db"), searchTerm)
+      .then(recipes => {
+        res.status(200).json(recipes);
+      })
+      .catch(err => {
+        next(err);
+      });
+  })
   .route("/")
   .get(requireAuth, (req, res, next) => {
     let user_id = req.user.id;
@@ -29,8 +41,7 @@ recipeRouter
       .catch(err => {
         next(err);
       });
-  })
-
+  })  
   .post(requireAuth, bodyParser, (req, res, next) => {
     let {
       title,

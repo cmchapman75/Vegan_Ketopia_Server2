@@ -1,6 +1,16 @@
 const INGREDIENT_REGEX = /([a-z]|[A-Z])+/;
 
 const recipesService = {
+
+  getRecipeBySearch(db, searchTerm) {
+    return db("recipes")
+      .select("*")
+      .innerJoin("recipe_ingredients", "recipe_ingredients.recipe_id", "recipes.id")
+      .innerJoin("ingredients", "ingredients.id", "recipe_ingredients.ingredient_id")
+      .where({
+        "ingredients.ingredient_name": searchTerm,
+      });
+  },  
   getAllRecipes(db, user_id) {
     return db("recipes")
       .select("*")
@@ -95,3 +105,14 @@ const recipesService = {
 };
 
 module.exports = recipesService;
+
+
+
+
+// SELECT * from recipes INNER JOIN 
+// recipe_ingredients ON 
+// recipe_ingredients.recipe_id = 
+// recipes.id INNER HOIN ingredients 
+// ON ingredients.id = 
+// recipe_ingredients.ingredient_id 
+// WHERE ingredients.ingredient_name = 'kale';
