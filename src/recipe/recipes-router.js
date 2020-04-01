@@ -225,19 +225,20 @@ recipeRouter
     let recipeObj = {};
     let recipe_ingredients_id = [];
     let recipe_ingredients = [];
-    recipesService.getRecipeById(req.app.get("db"), recipeid).then(recipe => {
+    return recipesService.getRecipeById(req.app.get("db"), recipeid).then(recipe => {
       if (!recipe) {
         logger.error(`Recipe with id ${recipe.id} not found`);
         return res.status(404).send("Recipe not found");
       } else {
-        recipeObj = {
-          id: recipe.id,
-          title: recipe.title,
-          owner: recipe.owner,
-          recipe_description: xss(recipe.recipe_description),
-          time_to_make: recipe.time_to_make,
-          recipe_owner: recipe.recipe_owner
-        };
+        return res.json(recipe);
+        // recipeObj = {
+        //   id: recipe.id,
+        //   title: recipe.title,
+        //   owner: recipe.owner,
+        //   recipe_description: xss(recipe.recipe_description),
+        //   time_to_make: recipe.time_to_make,
+        //   recipe_owner: recipe.recipe_owner
+        // };
       }
     });
 
