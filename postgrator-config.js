@@ -12,5 +12,5 @@ module.exports = {
   port: process.env.MIGRATION_DATABASE_PORT,
   database: process.env.MIGRATION_DATABASE_NAME,
   username: process.env.MIGRATION_DATABASE_USER,
-  ssl: !!process.env.SSL
+  ssl: !!process.env.SSL,
 };
