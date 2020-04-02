@@ -30,6 +30,7 @@ pantryRouter
           res
             .status(200)
             .json(ingredients);
+          console.log(ingredients);
         }
 
       })
