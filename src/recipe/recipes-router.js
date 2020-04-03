@@ -146,7 +146,7 @@ recipeRouter
 
     let isValidTitle = recipesService.isValidTitleInput(title);
     let isValidIngredients = recipesService.isValidIngredientsInput(ingredients);
-    let isValidDescription = recipesService.isValidDescriptionInput(instructions);
+    let isValidInstructions = recipesService.isValidInstructionsnInput(instructions);
 
 
     if (!isValidTitle) {
@@ -155,8 +155,8 @@ recipeRouter
     if (!isValidIngredients) {
       return res.status(400).json({ error: "Recipe ingredients must only contain letters and cannot begin or end with spaces" });
     }
-    if (!isValidDescription) {
-      return res.status(400).json({ error: "Recipe description cannot begin or end with spaces" });
+    if (!isValidInstructions) {
+      return res.status(400).json({ error: "Recipe instructions cannot begin or end with spaces" });
     }
     recipesService
       .updateRecipe(req.app.get("db"), updatedRecipe, recipeId)

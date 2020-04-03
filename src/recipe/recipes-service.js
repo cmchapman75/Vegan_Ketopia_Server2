@@ -87,13 +87,13 @@ const recipesService = {
     }
     return true;
   },
-  isValidDescriptionInput(descriptionArr) {
-    for (let i = 0; i < descriptionArr.length; ++i) {
+  isValidInstructionsInput(instructionsArr) {
+    for (let i = 0; i < instructionsArr.length; ++i) {
 
-      let description = descriptionArr[i];
-      description = description.trim();
+      let instructions = instructionsArr[i];
+      instructions = instructions.trim();
 
-      if (description === "") {
+      if (instructions === "") {
         return false;
       }
     }
