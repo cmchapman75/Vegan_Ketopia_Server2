@@ -2,7 +2,10 @@ const INGREDIENT_REGEX = /([a-z]|[A-Z])+/;
 
 const recipesService = {
 
-  getRecipesBySearch(db, searchTerm) {
+  getRecipesBySearch(db, searchTerm){
+    return db("recipes").select("*")
+  },
+  getRecipesByIngredientsSearch(db, searchTerm) {
     const query = db("recipes")
       .select("*")
       .innerJoin("recipe_ingredients", "recipe_ingredients.recipe_id", "recipes.id")
@@ -13,10 +16,10 @@ const recipesService = {
     console.log(query.toString());
     return query;
   },  
-  getAllRecipes(db) {
+  getAllRecipes(db, user_id) {
     return db("recipes")
-      .select("*");
-    // .where("recipe_owner", user_id);
+      .select("*")
+      .where("recipe_owner", user_id);
   },
   getAllByUser(db, users) {
     return db("recipes")
