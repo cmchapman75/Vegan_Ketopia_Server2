@@ -23,7 +23,7 @@ app.use("/api/auth", authRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/pantry", pantryRouter);
 app.use("/api/recipes", recipeRouter);
-app.use("/api/shoppinglist", listRouter);
+//app.use("/api/shoppinglist", listRouter);
 
 
 
