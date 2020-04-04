@@ -2,22 +2,24 @@ const INGREDIENT_REGEX = /([a-z]|[A-Z])+/;
 
 const recipesService = {
 
-  // getRecipesBySearch(db, searchTerm){
-  //   return db("recipes")
-  //     .select("*")
-  //     .where()
-  // },
-  getRecipesByIngredientsSearch(db, searchTerm) {
-    const query = db("recipes")
+  getRecipesBySearch(db, searchTerm){
+    return db("recipes")
       .select("*")
-      // .innerJoin("recipe_ingredients", "recipe_ingredients.recipe_id", "recipes.id")
-      // .innerJoin("ingredients", "ingredients.id", "recipe_ingredients.ingredient_id")
-      .where({
-        "ingredients.ingredient_name": searchTerm.toLowerCase(),
-      });
-    console.log(query.toString());
-    return query;
-  },  
+      .where("ingredients", "like", "%searchTerm%")
+      .orWhere("meal_type", "like", "%searchTerm%")
+      .orWhere("cuisine_type", "like", "%searchTerm%");
+  },
+  // getRecipesByIngredientsSearch(db, searchTerm) {
+  //const query = db("recipes")
+  //  .select("*")
+  // .innerJoin("recipe_ingredients", "recipe_ingredients.recipe_id", "recipes.id")
+  // .innerJoin("ingredients", "ingredients.id", "recipe_ingredients.ingredient_id")
+  //.where({
+  //  "ingredients.ingredient_name": searchTerm.toLowerCase(),
+  /// });
+  //   console.log(query.toString());
+  //   return query;
+  // },  
   getAllRecipes(db, user_id) {
     return db("recipes")
       .select("*")
