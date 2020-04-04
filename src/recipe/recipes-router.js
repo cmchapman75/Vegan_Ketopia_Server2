@@ -21,6 +21,7 @@ recipeRouter
   .route("/search")
   .get(requireAuth, (req, res, next) => {
     let searchTerm = req.query.q;
+    console.log(searchTerm);
     recipesService
       .getRecipesBySearch(req.app.get("db"), searchTerm)
       .then(recipes => {

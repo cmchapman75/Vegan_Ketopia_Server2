@@ -19,7 +19,8 @@ pantryRouter
   .route("/")
   .get(requireAuth, (req, res, next) => {
     let user_id = req.user.id;
-    PantryService.getIngredients(req.app.get("db"), user_id)
+    PantryService
+      .getIngredients(req.app.get("db"), user_id)
       .then((ingredients) => {
         if (req.query.q) {
           const filterResults = ingredients.filter((ingredient) => {
@@ -42,6 +43,7 @@ pantryRouter
   .post(requireAuth, bodyParser, (req, res, next) => {
     let { ingredient_name, in_stock, notes } = req.body;
     let ingredient_owner = req.user.id;
+    console.log(ingredient_owner);
     const newIngredient = {
       ingredient_name: ingredient_name.toLowerCase(),
       in_stock,

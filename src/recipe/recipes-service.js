@@ -2,7 +2,7 @@ const INGREDIENT_REGEX = /([a-z]|[A-Z])+/;
 
 const recipesService = {
 
-  getRecipesBySearch(db, searchTerm){
+  getRecipesBySearch(db, recipe_id){
     return db("recipes")
       .select("*")
       .where("ingredients", "like", "%searchTerm%")
