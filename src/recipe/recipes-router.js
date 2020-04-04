@@ -49,8 +49,8 @@ recipeRouter
       title,
       instructions,
       ingredients,
-      mealType,
-      cuisineType
+      meal_type,
+      cuisine_type
     } = req.body;
     let recipe_owner = req.user.id;
     let recipeId = "";
@@ -58,8 +58,8 @@ recipeRouter
       title,
       instructions,
       ingredients,
-      mealType, 
-      cuisineType,
+      meal_type, 
+      cuisine_type,
       recipe_owner
     };
 

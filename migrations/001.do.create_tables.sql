@@ -27,8 +27,8 @@ create table recipes (
     ingredients TEXT [] NOT NULL,
     instructions TEXT [] NOT NULL,
     macroType macro,
-    mealType meal,
-    cuisineType cuisine,     
+    meal_type meal,
+    cuisine_type cuisine,     
     nutrient_info TEXT,
     source_url TEXT,
     recipe_owner INTEGER REFERENCES users(id) ON DELETE CASCADE 
