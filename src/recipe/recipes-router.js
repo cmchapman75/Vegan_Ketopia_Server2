@@ -20,18 +20,23 @@ const serializeRecipe = recipe => {
 recipeRouter
   .route("/search")
   .get(requireAuth, (req, res, next) => {
-    let searchTerm = req.query.q;
+    const searchTerm = req.query.q;
+    const meal_type = req.query.meal_type;
+    const cuisine_type = req.query.cuisine_type;
     recipesService
       .getRecipesBySearch(req.app.get("db"), searchTerm)
       .then(recipes => {
         if(req.query.q) {
           const filterResults = recipes
-            .filter(recipe => (recipe.meal_type.toLowerCase() === meal_type.toLowerCase()))
-            .filter(recipe => (recipe.cuisine_type.toLowerCase() === cuisine_type.toLowerCase()))
             .filter(recipe => {
-              return recipe.ingredients.some(ingredient => 
-                ingredient.toLowerCase().includes(searchTerm.toLowerCase()));
-            });        
+              if (!meal_type || meal_type.toLowerCase() === "all") {
+                return true;
+              } return (recipe.meal_type.toLowerCase() === meal_type.toLowerCase());
+            })
+            .filter(recipe => {if (!cuisine_type || cuisine_type.toLowerCase() === "all") {
+              return true;
+            } return (recipe.cuisine_type.toLowerCase() === cuisine_type.toLowerCase());
+            });                   
           res.status(200).json(filterResults);
         }
       })
