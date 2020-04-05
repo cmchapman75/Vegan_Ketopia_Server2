@@ -21,11 +21,19 @@ recipeRouter
   .route("/search")
   .get(requireAuth, (req, res, next) => {
     let searchTerm = req.query.q;
-    console.log(searchTerm);
     recipesService
       .getRecipesBySearch(req.app.get("db"), searchTerm)
       .then(recipes => {
-        res.status(200).json(recipes);
+        if(req.query.q) {
+          const filterResults = recipes
+            .filter(recipe => (recipe.meal_type.toLowerCase() === meal_type.toLowerCase()))
+            .filter(recipe => (recipe.cuisine_type.toLowerCase() === cuisine_type.toLowerCase()))
+            .filter(recipe => {
+              return recipe.ingredients.some(ingredient => 
+                ingredient.toLowerCase().includes(searchTerm.toLowerCase()));
+            });        
+          res.status(200).json(filterResults);
+        }
       })
       .catch(err => {
         next(err);

@@ -2,12 +2,12 @@ const INGREDIENT_REGEX = /([a-z]|[A-Z])+/;
 
 const recipesService = {
 
-  getRecipesBySearch(db, recipe_id){
+  getRecipesBySearch(db, searchTerm ) {
     return db("recipes")
       .select("*")
-      .where("ingredients", "like", "%searchTerm%")
-      .orWhere("meal_type", "like", "%searchTerm%")
-      .orWhere("cuisine_type", "like", "%searchTerm%");
+      .where(db.raw(`array_to_string(ingredients, '')`), "like", `%${searchTerm}%`);
+      // .orWhere("meal_type", "like", "%searchTerm%")
+      // .orWhere("cuisine_type", "like", "%searchTerm%");
   },
   // getRecipesByIngredientsSearch(db, searchTerm) {
   //const query = db("recipes")
