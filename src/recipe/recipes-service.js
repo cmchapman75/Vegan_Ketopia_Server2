@@ -5,7 +5,7 @@ const recipesService = {
   getRecipesBySearch(db, searchTerm ) {
     return db("recipes")
       .select("*")
-      .where(db.raw(`array_to_string(ingredients, '')`), "like", `%${searchTerm}%`);
+      .where(db.raw(`array_to_string(ingredients, ',')`), "like", `%${searchTerm}%`);
       // .orWhere("meal_type", "like", "%searchTerm%")
       // .orWhere("cuisine_type", "like", "%searchTerm%");
   },
