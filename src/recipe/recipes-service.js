@@ -3,9 +3,10 @@ const INGREDIENT_REGEX = /([a-z]|[A-Z])+/;
 const recipesService = {
 
   getRecipesBySearch(db, searchTerm ) {
+    searchTerm = searchTerm.toLowerCase();
     return db("recipes")
       .select("*")
-      .where(db.raw(`array_to_string(ingredients, ',')`), "like", `%${searchTerm}%`);
+      .where(db.raw(`array_to_string(ingredients, ',') like ?`, `%${searchTerm}%`));
       // .orWhere("meal_type", "like", "%searchTerm%")
       // .orWhere("cuisine_type", "like", "%searchTerm%");
   },
@@ -115,13 +116,3 @@ const recipesService = {
 
 module.exports = recipesService;
 
-
-
-
-// SELECT * from recipes INNER JOIN 
-// recipe_ingredients ON 
-// recipe_ingredients.recipe_id = 
-// recipes.id INNER HOIN ingredients 
-// ON ingredients.id = 
-// recipe_ingredients.ingredient_id 
-// WHERE ingredients.ingredient_name = 'kale';
