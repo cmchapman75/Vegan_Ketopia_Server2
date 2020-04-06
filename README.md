@@ -1,6 +1,6 @@
 # Vegan Ketopia:
 
-    Vegan Ketopia is a best friend in the kitchen.
+    Vegan Ketopia is a best friend in the kitchen.  The app stars with the ability to search recipes and create new recipes.  You can also track the ingredients in your pantry.  The features still in development are a meal planning feature and a shopping list feature.
      
 
 
@@ -12,9 +12,9 @@
 
 ## Visit Kitchen Helper:
 
-  * [Client Side Repo]()
+  * [Client Side Repo](https://github.com/cmchapman75/Vegan_Ketopia_Client2)
 
-  * [Live App]()
+  * [Live App](https://vegan-ketopia.now.sh/)
   
   
 ## Screenshots:
@@ -35,7 +35,7 @@
 
 ## Technologies:
 
-**Front End Tech:** HTML, CSS, JavaScript, React, Modal, Widgets(Dark Mode)
+**Front End Tech:** HTML, CSS, JavaScript, React, Modal
 
 **Back End Tech:** NodeJs, ExpressJs, PostgreSQL
 
@@ -58,9 +58,8 @@
   
 | **HTTP Verb** | **Path**                           | **Used for**         |
 | --------- |:--------------------------------------:| --------------------:|
-| GET       | /recipes | view user's saved recipes  |
+| GET       | /recipes/searach | view user's saved recipes  |
 | POST       | /recipes | add new recipe |
-| PATCH     | /recipes/:recipe_Id | update/edit recipe |
 | GET       | /recipes/:recipe_Id | delete recipe |
 
 

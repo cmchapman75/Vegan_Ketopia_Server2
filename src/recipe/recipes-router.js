@@ -81,8 +81,6 @@ recipeRouter
     let isValidTitle = recipesService.isValidTitleInput(title);
     let isValidIngredients = recipesService.isValidIngredientsInput(ingredients);
     let isValidInstructions = recipesService.isValidInstructionsInput(instructions);
-    // let isValidMealType = recipesService.isValidMealTypeInput(mealType);
-    // let isValidCuisineType = recipesService.isValidCuisineTypeInput(cuisineType);
     
     if (!isValidTitle) {
       return res.status(400).json({ error: "Recipe title must only contain letters and cannot begin or end with spaces" });

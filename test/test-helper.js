@@ -24,52 +24,15 @@ function makeUsersArray() {
   return [
     {
       id: 1,
-      user_name: "test-user-1",
-      first_name: "Test user 1",
+      username: "test-user-1",
+      email_address: "Test user 1",
       password: "password",
     },
     {
       id: 2,
-      user_name: "test-user-2",
-      first_name: "Test user 2",
+      username: "test-user-2",
+      email_address: "Test user 2",
       password: "password",
-    },
-  ];
-}
-
-function makeMealPlans() {
-  [
-    {
-      id: 1,
-      title: "bread",
-      planned_date: "2/14/2020",
-      time_to_make: "30",
-      needed_ingredients: "potatoes",
-      mealplan_owner: 1
-    },
-    {
-      id: 2,
-      title: "cheese",
-      planned_date: "2/14/2020",
-      time_to_make: "30",
-      needed_ingredients: "potatoes",
-      mealplan_owner: 1
-    },
-    {
-      id: 3,
-      title: "bread",
-      planned_date: "2/14/2020",
-      time_to_make: "30",
-      needed_ingredients: "potatoes",
-      mealplan_owner: 1
-    },
-    {
-      id: 4,
-      title: "cheese",
-      planned_date: "2/14/2020",
-      time_to_make: "30",
-      needed_ingredients: "potatoes",
-      mealplan_owner: 1
     },
   ];
 }
@@ -103,72 +66,34 @@ function makeIngredients() {
   ];
 }
 
-function makeRecipeIngredients() {
-  return [
-    {
-      recipe_id: 1,
-      ingredient_id: 1,
-    },
-    {
-      recipe_id: 1,
-      ingredient_id: 2,
-    },
-    {
-      recipe_id: 2,
-      ingredient_id: 3,
-    },
-    {
-      recipe_id: 2,
-      ingredient_id: 4,
-    },
-    {
-      recipe_id: 3,
-      ingredient_id: 1,
-    },
-    {
-      recipe_id: 3,
-      ingredient_id: 2,
-    },
-    {
-      recipe_id: 4,
-      ingredient_id: 3,
-    },
-    {
-      recipe_id: 4,
-      ingredient_id: 4,
-    },
-
-  ]
-}
-
 function makeRecipes() {
   return [
     {
       title: "Test Recipe 1",
       //recipe_ingredients: ["Test Ingredient 1", "Test Ingredient 2"],
-      recipe_description: ["instruction 1.1", "instruction 1.2"],
-      time_to_make: 21,
+      instructions: ["instruction 1.1", "instruction 1.2"],
+    
       recipe_owner: 1,
     },
     {
       title: "Test Recipe 2",
       //recipe_ingredients: ["Test Ingredient 3", "Test Ingredient 4"],
-      recipe_description: ["instruction 2.1", "instruction 2.2"],
-      time_to_make: 22,
+      instructions: ["instruction 2.1", "instruction 2.2"],
+      
       recipe_owner: 1,
     },
     {
       title: "Test Recipe 3",
       //recipe_ingredients: ["Test Ingredient 1", "Test Ingredient 2"],
-      recipe_description: ["instruction 3.1", "instruction 3.2"],
-      time_to_make: 23,
+      instructions: ["instruction 3.1", "instruction 3.2"],
+      
       recipe_owner: 2,
     },
     {
       title: "Test Recipe 4",
       //recipe_ingredients: ["Test Ingredient 3", "Test Ingredient 4"],
-      recipe_description: ["instruction 4.1", "instruction 4.2"],
-      time_to_make: 24,
+      instructions: ["instruction 4.1", "instruction 4.2"],
+      
       recipe_owner: 2,
     }
   ]
@@ -183,7 +108,7 @@ function makeRecipes() {
  */
 function makeAuthHeader(user, secret = process.env.JWT_SECRET) {
   const token = jwt.sign({ user_id: user.id }, secret, {
-    subject: user.user_name,
+    subject: user.username,
     algorithm: "HS256",
   });
   return `Bearer ${token}`;
@@ -198,25 +123,19 @@ function cleanTables(db) {
   return db.transaction(trx =>
     trx.raw(
       `TRUNCATE
-        "recipe_ingredients",
         "ingredients",
         "recipes",
-        "mealplans",
-        "accounts"
+        "users"
         `
     )
       .then(() =>
         Promise.all([
-          trx.raw("ALTER SEQUENCE recipe_ingredients_id_seq minvalue 0 START WITH 0"),
           trx.raw("ALTER SEQUENCE ingredients_id_seq minvalue 0 START WITH 0"),
           trx.raw("ALTER SEQUENCE recipes_id_seq minvalue 0 START WITH 0"),
-          trx.raw("ALTER SEQUENCE mealplans_id_seq minvalue 0 START WITH 0"),
-          trx.raw("ALTER SEQUENCE accounts_id_seq minvalue 0 START WITH 0"),
-          trx.raw("SELECT setval('recipe_ingredients_id_seq', 0)"),
+          trx.raw("ALTER SEQUENCE users_id_seq minvalue 0 START WITH 0"),
           trx.raw("SELECT setval('ingredients_id_seq', 0)"),
           trx.raw("SELECT setval('recipes_id_seq', 0)"),
-          trx.raw("SELECT setval('mealplans_id_seq', 0)"),
-          trx.raw("SELECT setval('accounts_id_seq', 0)")
+          trx.raw("SELECT setval('users_id_seq', 0)")
         ])
       )
   );
@@ -231,15 +150,8 @@ function cleanTables(db) {
 async function seedUsers(db, users) {
 
   await db.transaction(async trx => {
-    await trx.into("accounts").insert(users);
+    await trx.into("users").insert(users);
   });
-}
-
-async function seedMealPlans(db, users, mealplans) {
-  await db.transaction(async trx => {
-    await trx.into("accounts").insert(users);
-    await trx.into("mealplans").insert(mealplans)
-  })
 }
 
 /**
@@ -286,12 +198,9 @@ module.exports = {
   makeRecipes,
   makeIngredients,
   makeAuthHeader,
-  makeRecipeIngredients,
   cleanTables,
   seedUsers,
   seedPantry,
   seedRecipes,
-  makeMealPlans,
-  seedMealPlans
 
 };
